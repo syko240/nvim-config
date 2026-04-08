@@ -15,21 +15,6 @@ return {
   keys = {
     { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
-  init = function()
-    vim.api.nvim_create_autocmd('VimEnter', {
-      callback = function()
-        if vim.fn.argc(-1) == 1 then
-          local stat = vim.uv.fs_stat(vim.fn.argv(0))
-          if stat and stat.type == 'directory' then
-            vim.schedule(function()
-              vim.cmd('Neotree reveal')
-              vim.cmd('wincmd l')
-            end)
-          end
-        end
-      end,
-    })
-  end,
   opts = {
     filesystem = {
       hijack_netrw_behavior = 'open_default',
