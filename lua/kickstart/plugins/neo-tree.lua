@@ -16,22 +16,24 @@ return {
     { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   init = function()
-    vim.api.nvim_create_autocmd('VimEnter', {
+    vim.api.nvim_create_autocmd('BufEnter', {
+      group = vim.api.nvim_create_augroup('Neotree_start_directory', { clear = true }),
+      desc = 'Start Neo-tree with directory',
+      once = true,
       callback = function()
-        if vim.fn.argc(-1) == 1 then
-          local stat = vim.uv.fs_stat(vim.fn.argv(0))
-          if stat and stat.type == 'directory' then
-            vim.schedule(function()
-              vim.cmd('Neotree filesystem show left')
-              vim.cmd('wincmd l')
-            end)
-          end
+        if package.loaded['neo-tree'] then
+          return
+        end
+        local stats = vim.uv.fs_stat(vim.api.nvim_buf_get_name(0))
+        if stats and stats.type == 'directory' then
+          require('lazy').load({ plugins = { 'neo-tree.nvim' } })
         end
       end,
     })
   end,
   opts = {
     filesystem = {
+      hijack_netrw_behavior = 'open_default',
       window = {
         mappings = {
           ['\\'] = 'close_window',
