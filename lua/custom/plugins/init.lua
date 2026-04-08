@@ -29,7 +29,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
-      default_file_explorer = true,
+      default_file_explorer = false,
       -- Id is automatically added at the beginning, and name at the end
       columns = {
         'icon',
