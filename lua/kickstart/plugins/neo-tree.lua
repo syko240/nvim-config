@@ -22,7 +22,7 @@ return {
           local stat = vim.uv.fs_stat(vim.fn.argv(0))
           if stat and stat.type == 'directory' then
             vim.schedule(function()
-              vim.cmd('Neotree reveal')
+              vim.cmd('Neotree filesystem show left')
               vim.cmd('wincmd l')
             end)
           end
