@@ -21,8 +21,10 @@ return {
         if vim.fn.argc(-1) == 1 then
           local stat = vim.uv.fs_stat(vim.fn.argv(0))
           if stat and stat.type == 'directory' then
-            require('neo-tree.command').execute({ action = 'show', position = 'left' })
-            vim.cmd('wincmd l')
+            vim.schedule(function()
+              vim.cmd('Neotree reveal')
+              vim.cmd('wincmd l')
+            end)
           end
         end
       end,
